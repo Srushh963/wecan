@@ -1,0 +1,117 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile containing professional preferences and performance metrics.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "targetRole": { "type": "string" },
+        "experienceLevel": { "enum": ["Entry", "Mid", "Senior", "Lead"] },
+        "readinessScore": { "type": "number" },
+        "lastLogin": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Resume": {
+      "title": "Resume",
+      "description": "ATS-optimized resume data.",
+      "type": "object",
+      "properties": {
+        "education": { "type": "array", "items": { "type": "string" } },
+        "experience": { "type": "array", "items": { "type": "string" } },
+        "skills": { "type": "array", "items": { "type": "string" } },
+        "projects": { "type": "array", "items": { "type": "string" } },
+        "aiSuggestions": { "type": "string" },
+        "atsScore": { "type": "number" }
+      }
+    },
+    "InterviewSession": {
+      "title": "Interview Session",
+      "description": "A live simulator recording including questions, recorded answers, and AI feedback.",
+      "type": "object",
+      "properties": {
+        "sessionId": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "mode": { "enum": ["technical", "behavioral", "voice"] },
+        "role": { "type": "string" },
+        "history": { 
+          "type": "array", 
+          "items": {
+            "type": "object",
+            "properties": {
+              "role": { "enum": ["user", "model"] },
+              "parts": { "type": "array", "items": { "type": "object", "properties": { "text": { "type": "string" } } } }
+            }
+          }
+        },
+        "feedback": { "type": "string" },
+        "score": { "type": "number" }
+      }
+    },
+    "QASession": {
+      "title": "Q&A Session",
+      "description": "Generated interview questions and professional answer keys.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "targetRole": { "type": "string" },
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "question": { "type": "string" },
+              "idealAnswer": { "type": "string" },
+              "criteria": { "type": "string" }
+            }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "StudyPlan": {
+      "title": "Study Plan",
+      "description": "Personalized curriculum for skill enhancement.",
+      "type": "object",
+      "properties": {
+        "topics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "status": { "enum": ["pending", "completed"] },
+              "priority": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{uid}": {
+      "schema": "User",
+      "description": "Core user document."
+    },
+    "/users/{uid}/resumes/current": {
+      "schema": "Resume",
+      "description": "Current ATS optimized resume."
+    },
+    "/users/{uid}/interviews/{sessionId}": {
+      "schema": "InterviewSession",
+      "description": "History of mock interviews."
+    },
+    "/users/{uid}/qa_sessions/{sessionId}": {
+      "schema": "QASession",
+      "description": "History of generated Q&A sets."
+    },
+    "/users/{uid}/studyPlans/current": {
+      "schema": "StudyPlan",
+      "description": "User learning curriculum."
+    }
+  }
+}

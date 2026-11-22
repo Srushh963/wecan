@@ -1,0 +1,85 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Primitives
+    function isSignedIn() { return request.auth != null; }
+    function isVerified() { return isSignedIn() && request.auth.token.email_verified == true; }
+    function isOwner(uid) { return isSignedIn() && request.auth.uid == uid; }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+
+    // User Validation
+    function isValidUser(data) {
+      return data.uid == request.auth.uid
+        && data.email is string
+        && data.email.size() <= 256
+        && (data.targetRole == null || data.targetRole is string)
+        && (data.experienceLevel == null || data.experienceLevel in ["Entry", "Mid", "Senior", "Lead"])
+        && (data.readinessScore == null || data.readinessScore is number);
+    }
+
+    // Resume Validation
+    function isValidResume(data) {
+      return data.education is list
+        && data.experience is list
+        && data.skills is list
+        && data.projects is list
+        && (data.atsScore == null || data.atsScore is number);
+    }
+
+    // Interview Validation
+    function isValidSession(data) {
+      return data.timestamp is string
+        && (data.mode in ["technical", "behavioral", "voice"])
+        && data.history is list;
+    }
+
+    // QA Session Validation
+    function isValidQASession(data) {
+      return data.targetRole is string
+        && data.questions is list
+        && data.createdAt is string;
+    }
+
+    // Study Plan Validation
+    function isValidStudyPlan(data) {
+      return data.topics is list;
+    }
+
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false;
+      
+      allow create: if isOwner(userId) && isVerified()
+        && isValidUser(incoming());
+
+      allow update: if isOwner(userId) && isVerified()
+        && isValidUser(incoming());
+
+      match /resumes/current {
+        allow read, write: if isOwner(userId) && isVerified();
+      }
+
+      match /interviews/{sessionId} {
+        allow read: if isOwner(userId) && isVerified();
+        allow create: if isOwner(userId) && isVerified() && isValidId(sessionId) && isValidSession(incoming());
+      }
+
+      match /qa_sessions/{sessionId} {
+        allow read: if isOwner(userId) && isVerified();
+        allow create: if isOwner(userId) && isVerified() && isValidId(sessionId) && isValidQASession(incoming());
+      }
+
+      match /studyPlans/current {
+        allow read, write: if isOwner(userId) && isVerified();
+      }
+    }
+  }
+}
