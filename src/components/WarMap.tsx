@@ -101,13 +101,16 @@ export default function WarMap({ user }: { user: UserProfile }) {
         </div>
 
         {/* Navigation Rail */}
-        <nav className="flex-1 p-4 space-y-1.5 overflow-y-auto scrollbar-hide">
+        <nav className="flex-1 p-4 space-y-1.5 overflow-y-auto scrollbar-hide" aria-label="Main Navigation">
           <div className="px-4 py-2 mb-2">
             <p className="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Workspace</p>
           </div>
           {menuItems.map((item) => (
             <button
               key={item.id}
+              role="button"
+              aria-current={activeModule === item.id ? 'page' : undefined}
+              aria-label={item.label}
               onClick={() => handleModuleChange(item.id as any)}
               className={`w-full group px-4 py-3 rounded-xl flex items-center gap-4 transition-all duration-300 ${
                 activeModule === item.id 

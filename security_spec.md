@@ -1,10 +1,12 @@
-# Security Specification: Yogyata.ai
+# Security Specification: WeCan (AI Career Acceleration Platform)
 
 ## 1. Data Invariants
 - A user document at `/users/{uid}` must match the authenticated `request.auth.uid`.
 - Users cannot modify their `capabilityScore` directly without a "Proof of Work" (simulated for now, but locked behind a state check).
 - Skill nodes at `/users/{uid}/nodes/{nodeId}` belong exclusively to the parent user.
 - All IDs must match `^[a-zA-Z0-9_\-]+$`.
+- Supabase Row-Level Security (RLS) ensures tenant isolation across `profiles`, `resumes`, `tests`, `study_plans`, `qa_sessions`, and `interviews`.
+- Groq AI inference sanitizes user prompts and escapes input payloads to prevent prompt injection and SSRF.
 
 ## 2. The Dirty Dozen Payloads (Denial Targets)
 1. **Identity Spoofing**: Attempting to create `/users/victim_id` while authenticated as `attacker_id`.

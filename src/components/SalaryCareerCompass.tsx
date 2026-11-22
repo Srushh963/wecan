@@ -65,39 +65,45 @@ You MUST return a JSON object with this exact schema:
     <div className="w-full max-w-5xl mx-auto space-y-10 pb-20 font-sans">
       <div className="border-b border-white/5 pb-8 space-y-2">
         <p className="text-[10px] text-blue-500 font-bold uppercase tracking-[0.3em]">Market Intelligence</p>
-        <h2 className="text-4xl font-extrabold tracking-tight text-white">Salary & Career Compass</h2>
+        <h1 className="text-4xl font-extrabold tracking-tight text-white">Salary & Career Compass</h1>
         <p className="text-slate-500 text-sm font-medium">Explore compensation brackets, high-paying tech stacks, and student negotiation leverage.</p>
       </div>
 
       {/* Input Controls */}
       <div className="p-6 bg-slate-900 border border-white/5 rounded-3xl shadow-xl grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
         <div className="space-y-1.5">
-          <label className="text-[11px] font-semibold uppercase tracking-wider text-slate-300">Target Role</label>
+          <label htmlFor="salary-role-input" className="text-[11px] font-semibold uppercase tracking-wider text-slate-300">Target Role</label>
           <input
+            id="salary-role-input"
             type="text"
             value={role}
             onChange={(e) => setRole(e.target.value)}
             placeholder="e.g. Fullstack Engineer"
+            aria-label="Target Role"
             className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500"
           />
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-[11px] font-semibold uppercase tracking-wider text-slate-300">Market / Location</label>
+          <label htmlFor="salary-loc-input" className="text-[11px] font-semibold uppercase tracking-wider text-slate-300">Market / Location</label>
           <input
+            id="salary-loc-input"
             type="text"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             placeholder="e.g. India (Bengaluru), US, Remote"
+            aria-label="Market / Location"
             className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500"
           />
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-[11px] font-semibold uppercase tracking-wider text-slate-300">Experience Bracket</label>
+          <label htmlFor="salary-exp-select" className="text-[11px] font-semibold uppercase tracking-wider text-slate-300">Experience Bracket</label>
           <select
+            id="salary-exp-select"
             value={experience}
             onChange={(e) => setExperience(e.target.value)}
+            aria-label="Experience Bracket"
             className="w-full bg-slate-950 border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-blue-500"
           >
             <option>Intern / College Graduate</option>

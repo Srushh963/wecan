@@ -1,6 +1,32 @@
 {
-  "name": "Yogyata.ai",
-  "description": "A professional AI-powered interview coach and career development dashboard for high-stakes preparation.",
+  "name": "WeCan",
+  "short_name": "WeCan",
+  "version": "1.0.0",
+  "description": "Comprehensive, AI-powered career accelerator and interview platform for students and software engineers.",
+  "problem_statement": {
+    "title": "AI-Powered Technical Interview & Placement Acceleration Platform",
+    "domain": "Education, Career Technology, and Automated Technical Evaluation",
+    "solution": "WeCan unifies the entire technical job preparation lifecycle: real-time voice-first mock interviews (STAR method, speech cadence and pronunciation analytics), ATS resume forensic scanning and reconstruction, interactive multi-language live coding arenas, and data-backed compensation negotiation intelligence."
+  },
+  "modules": [
+    { "id": "profile", "name": "Candidate Profile Onboarding", "description": "Calibrates domain targets and experience baseline." },
+    { "id": "voice-resume", "name": "Voice-First Resume Builder", "description": "Synthesizes spoken accomplishments into an ATS-ready executive resume." },
+    { "id": "ats-scan", "name": "ATS Structural Scanner", "description": "Audits resumes against target job descriptions and extracts missing keyword nodes." },
+    { "id": "qa", "name": "Adversarial Practice Q&A", "description": "Technical and behavioral question generator with ideal answer modeling." },
+    { "id": "written", "name": "Domain Written Assessments", "description": "Challenging multiple-choice examinations testing framework internals and edge cases." },
+    { "id": "coding-arena", "name": "Live Coding Arena", "description": "Multi-language code workbench (JS, Python, C++, Java) with automated Big-O and edge-case AI review." },
+    { "id": "interview", "name": "Adversarial Mock Interview Simulator", "description": "Voice-first technical and HR simulation with STAR grading and speech coaching." },
+    { "id": "cover-letter", "name": "AI Cover Letter Architect", "description": "Generates authentic, high-impact cover letters with selectable tones." },
+    { "id": "salary-compass", "name": "Salary & Career Compass", "description": "Market compensation benchmarks, high-value skill roadmaps, and negotiation tactics." },
+    { "id": "resources", "name": "Adaptive Resource Hub", "description": "Dynamically discovers learning resources based on candidate assessment gaps." },
+    { "id": "analytics", "name": "Performance Analytics Vault", "description": "Visualizes candidate velocity, readiness curves, and competency depth." }
+  ],
   "requestFramePermissions": ["microphone"],
-  "majorCapabilities": []
+  "majorCapabilities": [
+    "Voice Recognition and Speech Synthesis",
+    "ATS Forensic Scoring",
+    "Multi-Language Algorithmic Code Evaluation",
+    "One-Tap Executive PDF Report Export",
+    "Supabase Row Level Security Data Isolation"
+  ]
 }

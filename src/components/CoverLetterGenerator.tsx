@@ -79,7 +79,7 @@ Instructions:
     <div className="w-full max-w-5xl mx-auto space-y-10 pb-20 font-sans">
       <div className="border-b border-white/5 pb-8 space-y-2">
         <p className="text-[10px] text-blue-500 font-bold uppercase tracking-[0.3em]">Application Accelerator</p>
-        <h2 className="text-4xl font-extrabold tracking-tight text-white">AI Cover Letter Architect</h2>
+        <h1 className="text-4xl font-extrabold tracking-tight text-white">AI Cover Letter Architect</h1>
         <p className="text-slate-500 text-sm font-medium">Generate role-tailored, authentic cover letters that stand out to hiring managers.</p>
       </div>
 
@@ -88,27 +88,31 @@ Instructions:
         <div className="lg:col-span-5 space-y-6">
           <div className="bg-slate-900 border border-white/5 p-6 rounded-3xl space-y-4 shadow-xl">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+              <label htmlFor="cover-target-company" className="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
                 <Building2 className="w-3.5 h-3.5 text-blue-400" /> Target Company
               </label>
               <input
+                id="cover-target-company"
                 type="text"
                 value={targetCompany}
                 onChange={(e) => setTargetCompany(e.target.value)}
                 placeholder="e.g. Google, Stripe, Microsoft"
+                aria-label="Target Company"
                 className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+              <label htmlFor="cover-job-title" className="text-xs font-semibold uppercase tracking-wider text-slate-300 flex items-center gap-2">
                 <Briefcase className="w-3.5 h-3.5 text-blue-400" /> Job Title
               </label>
               <input
+                id="cover-job-title"
                 type="text"
                 value={jobTitle}
                 onChange={(e) => setJobTitle(e.target.value)}
                 placeholder="e.g. Frontend Engineer Intern"
+                aria-label="Job Title"
                 className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500"
               />
             </div>
@@ -117,11 +121,12 @@ Instructions:
               <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
                 Tone Preference
               </label>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-3 gap-2" role="group" aria-label="Tone Preference">
                 {(['confident', 'enthusiastic', 'technical'] as const).map((t) => (
                   <button
                     key={t}
                     type="button"
+                    aria-pressed={tone === t}
                     onClick={() => setTone(t)}
                     className={`py-2 text-xs font-semibold rounded-lg capitalize transition-all ${
                       tone === t
@@ -136,26 +141,30 @@ Instructions:
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+              <label htmlFor="cover-job-desc" className="text-xs font-semibold uppercase tracking-wider text-slate-300">
                 Job Description Highlights (Optional)
               </label>
               <textarea
+                id="cover-job-desc"
                 value={jobDescription}
                 onChange={(e) => setJobDescription(e.target.value)}
                 placeholder="Paste key responsibilities or required technologies..."
+                aria-label="Job Description Highlights"
                 rows={4}
                 className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 resize-none"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+              <label htmlFor="cover-user-bg" className="text-xs font-semibold uppercase tracking-wider text-slate-300">
                 Your Projects / Standout Skills
               </label>
               <textarea
+                id="cover-user-bg"
                 value={userBackground}
                 onChange={(e) => setUserBackground(e.target.value)}
                 placeholder="e.g. Built a real-time collaborative code editor with WebSockets; 200+ LeetCode solved."
+                aria-label="Your Projects or Standout Skills"
                 rows={3}
                 className="w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 resize-none"
               />

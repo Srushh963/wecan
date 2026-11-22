@@ -146,9 +146,9 @@ export default function NeuralLink({ onSuccess }: NeuralLinkProps) {
           <div className="w-14 h-14 mx-auto mb-4 border border-blue-500/20 rounded-2xl flex items-center justify-center bg-blue-500/10 shadow-lg">
             <Lock className="w-7 h-7 text-blue-400" />
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
             {authMode === 'signin' ? 'Sign In to WeCan' : 'Create an Account'}
-          </h2>
+          </h1>
           <p className="text-xs sm:text-sm text-slate-400">
             {authMode === 'signin'
               ? 'Enter your credentials to continue your prep.'
@@ -157,9 +157,11 @@ export default function NeuralLink({ onSuccess }: NeuralLinkProps) {
         </div>
 
         {/* Tab switcher: Sign In vs Sign Up */}
-        <div className="flex bg-slate-800/80 p-1 rounded-xl border border-white/5">
+        <div className="flex bg-slate-800/80 p-1 rounded-xl border border-white/5" role="tablist" aria-label="Authentication Options">
           <button
             type="button"
+            role="tab"
+            aria-selected={authMode === 'signin'}
             onClick={() => { setAuthMode('signin'); setErrorMsg(null); setSuccessNotice(null); }}
             className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${
               authMode === 'signin'
@@ -171,6 +173,8 @@ export default function NeuralLink({ onSuccess }: NeuralLinkProps) {
           </button>
           <button
             type="button"
+            role="tab"
+            aria-selected={authMode === 'signup'}
             onClick={() => { setAuthMode('signup'); setErrorMsg(null); setSuccessNotice(null); }}
             className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all ${
               authMode === 'signup'
@@ -189,6 +193,8 @@ export default function NeuralLink({ onSuccess }: NeuralLinkProps) {
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
+              role="alert"
+              aria-live="assertive"
               className="p-3 bg-red-500/10 border border-red-500/30 rounded-xl flex items-start gap-2.5 text-xs text-red-300"
             >
               <AlertCircle className="w-4 h-4 shrink-0 text-red-400 mt-0.5" />
@@ -200,6 +206,8 @@ export default function NeuralLink({ onSuccess }: NeuralLinkProps) {
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
+              role="status"
+              aria-live="polite"
               className="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl flex items-start gap-2.5 text-xs text-emerald-300"
             >
               <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400 mt-0.5" />
@@ -209,31 +217,34 @@ export default function NeuralLink({ onSuccess }: NeuralLinkProps) {
         </AnimatePresence>
 
         {/* Email & Password Form */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" aria-label="Email and Password Authentication">
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+            <label htmlFor="auth-email-input" className="text-xs font-semibold uppercase tracking-wider text-slate-300">
               Email Address
             </label>
             <div className="relative">
               <Mail className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
+                id="auth-email-input"
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@example.com"
+                aria-label="Email Address"
                 className="w-full bg-slate-950/70 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+            <label htmlFor="auth-password-input" className="text-xs font-semibold uppercase tracking-wider text-slate-300">
               Password
             </label>
             <div className="relative">
               <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
+                id="auth-password-input"
                 type="password"
                 required
                 value={password}
